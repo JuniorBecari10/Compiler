@@ -1,0 +1,10 @@
+println("hello world")
+print("hello world")
+
+n int = 0
+n int
+n = 0
+
+stdlib
+println
+print
