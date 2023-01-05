@@ -9,13 +9,21 @@ import (
 const (
   NumberToken = iota
   IdentifierToken
-  EqualsToken
+  
+  AssignToken
+  
   LParenToken
   RParenToken
+  
   PlusToken
   MinusToken
   TimesToken
   DivideToken
+  
+  IntTypeToken
+  StrTypeToken
+  FloatTypeToken
+  
   NewLineToken
 )
 
@@ -39,10 +47,29 @@ func Lex(s string, line int) []Token {
       continue
     } else if IsChar(s[i]) {
       start := i
+      cont := false
       
       for i < len(s) && IsChar(s[i]) {
         value += string(s[i])
         i++
+        
+        if value == "int" {
+          tokens = append(tokens, Token { value, IntTypeToken, start })
+          cont = true
+          break
+        } else if value == "str" {
+          tokens = append(tokens, Token { value, StrTypeToken, start })
+          cont = true
+          break
+        } else if value == "float" {
+          tokens = append(tokens, Token { value, FloatTypeToken, start })
+          cont = true
+          break
+        }
+      }
+      
+      if cont {
+        continue
       }
       
       tokens = append(tokens, Token { value, IdentifierToken, start })
@@ -60,7 +87,7 @@ func Lex(s string, line int) []Token {
       tokens = append(tokens, Token { num, NumberToken, start })
       continue
     } else if s[i] == '=' {
-      tokens = append(tokens, Token { s[i], EqualsToken, i })
+      tokens = append(tokens, Token { s[i], AssignToken, i })
     } else if s[i] == '(' {
       tokens = append(tokens, Token { s[i], LParenToken, i })
     } else if s[i] == ')' {
