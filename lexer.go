@@ -34,7 +34,7 @@ func Lex(s string, line int) []Token {
   for i < len(s) {
     value := ""
     
-    if s[i] == " " {
+    if s[i] == ' ' {
       i++
       continue
     } else if IsChar(s[i]) {
