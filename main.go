@@ -13,8 +13,8 @@ func main() {
   
   lines := ReadFile(os.Args[1])
   
-  for _, l := range lines {
-    tokens := Lex(l)
+  for i, l := range lines {
+    tokens := Lex(l, i)
     fmt.Println(tokens)
   }
 }
