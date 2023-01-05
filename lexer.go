@@ -2,6 +2,7 @@ package main
 
 import (
   //"fmt"
+  "strconv"
 )
 
 const (
@@ -36,6 +37,19 @@ func Lex(s string) []Token {
       }
       
       tokens = append(tokens, Token { value, IdentifierToken, start })
+      continue
+    } else if IsDigit(s[i]) {
+      start := i
+      
+      for i < len(s) && IsDigit(s[i]) {
+        value += string(s[i])
+        i++
+      }
+      
+      num, _ := strconv.Atoi(value)
+      
+      tokens = append(tokens, Token { num, IdentifierToken, start })
+      continue
     }
     
     i++
