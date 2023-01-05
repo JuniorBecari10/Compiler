@@ -12,9 +12,14 @@ func main() {
   }
   
   lines := ReadFile(os.Args[1])
+  tokens := make([]Token, 0)
   
   for i, l := range lines {
-    tokens := Lex(l, i)
-    fmt.Println(tokens)
+    tks := Lex(l, i)
+    fmt.Println(tks)
+    
+    tokens = append(tokens, tks)
   }
+  
+  
 }
